@@ -230,8 +230,8 @@ python evaluate.py
 - 💬 Dùng chatbot để hỏi thêm thông tin bệnh lý.
 - 📊 Xem lại lịch sử chẩn đoán.
 - 📁 Dữ liệu được lưu trong SQLite.
-### 🧱 Cấu trúc Thư Mục Dự Án — Skin Disease AI
-### 📁 Cấu trúc tổng thể
+#### 🧱 Cấu trúc Thư Mục Dự Án — Skin Disease AI
+#### 📁 Cấu trúc tổng thể
 ```bash
 Skin_disease_ai/
 │
