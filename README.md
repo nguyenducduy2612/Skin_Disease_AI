@@ -298,7 +298,7 @@ Skin_disease_ai/
 - **Họ tên**: Nguyễn Đức Duy  
 - **Lớp**: CNTT 16-01  
 - **Email**: [Nguyenducduy2612@icloud.com](mailto:Nguyenducduy2612@icloud.com)  
-- **GitHub**: [github.com/nguyenducduy2612/Ung_Dung_Tra_Cuu_Tu_Dien_Anh_Viet](github.com/nguyenducduy2612/Skin_Disease_AI) 
+- **GitHub**: [github.com/nguyenducduy2612/Skin_Disease_AI](github.com/nguyenducduy2612/Skin_Disease_AI) 
 - **Phòng thí nghiệm**: AIoTLab, Khoa Công Nghệ Thông Tin, Đại học Đại Nam  
 - **Website**: [dainam.edu.vn](https://dainam.edu.vn)  
 - **Facebook AIoTLab**: [facebook.com/DNUAIoTLab](https://www.facebook.com/DNUAIoTLab)
