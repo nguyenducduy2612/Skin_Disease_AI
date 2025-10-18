@@ -20,193 +20,155 @@
 
 ## 1. Giới thiệu
 
-Ứng dụng Tra Cứu Từ Điển Anh - Việt là một dự án học tập được phát triển bằng **Java Socket** và **Java Swing** trong khuôn khổ nghiên cứu tại **AIoTLab**, Khoa Công Nghệ Thông Tin, Đại học Đại Nam. Ứng dụng cung cấp một hệ thống client-server cho phép tra cứu từ vựng song ngữ (Tiếng Anh ↔ Tiếng Việt) với giao diện người dùng thân thiện và khả năng xử lý đa luồng hiệu quả.
-### Cấu trúc ứng dụng:
-- **Server**: 
-  - Quản lý dữ liệu từ điển từ tệp `english-vietnamese.csv` hoặc sử dụng dữ liệu mặc định (apple, book, dog).
-  - Hỗ trợ đa luồng để xử lý nhiều kết nối từ client đồng thời.
-  - Chạy trên cổng 2000, lắng nghe các yêu cầu tra cứu từ client.
-- **Client**: 
-  - Giao diện đồ họa (GUI) được xây dựng bằng Java Swing.
-  - Hỗ trợ tra cứu từ vựng, hiển thị thông tin chi tiết (nghĩa, phiên âm IPA, từ loại, ví dụ minh họa, hình ảnh).
-  - Cung cấp gợi ý từ khi không tìm thấy từ chính xác.
+**Skin_Disease_AI** là một ứng dụng web sử dụng **trí tuệ nhân tạo** để hỗ trợ chẩn đoán các bệnh da liễu thường gặp. Hệ thống kết hợp **mô hình học sâu (CNN)** để phân tích hình ảnh và **mô hình ngôn ngữ (GPT)** để để phân tích mô tả triệu chứng và đưa ra **Kết luận y khoa ngắn gọn**. Toàn bộ hệ thống được xây dựng bằng Flask, có giao diện web thân thiện, chức năng kéo-thả ảnh, chatbot tư vấn, lưu lịch sử phân tích, và đăng nhập người dùng.
+Người dùng có thể:
+- 📸 Tải lên ảnh vùng da cần kiểm tra (hoặc kéo–thả trực tiếp).
+- ✍️ Nhập mô tả triệu chứng đi kèm.
+- 🤖 Nhận chẩn đoán tự động kèm gợi ý điều trị cơ bản.
+- 💬 Trao đổi thêm với chatbot AI.
+- 📊 Xem lại lịch sử các lần phân tích.
 
-### 🔑 Tính năng chính:
-- **Tra cứu song ngữ**: Hỗ trợ tra cứu từ tiếng Anh sang tiếng Việt và ngược lại.
-- **Thông tin chi tiết**: Hiển thị nghĩa, phiên âm (IPA), từ loại, ví dụ minh họa bằng cả hai ngôn ngữ.
-- **Gợi ý thông minh**: Gợi ý các từ bắt đầu bằng ký tự đầu tiên khi từ tra cứu không tồn tại.
-- **Hình ảnh minh họa đa dạng**: Hiển thị hình ảnh minh họa khi tra từ điển tương ứng.
-- **Giao diện trực quan**: Giao diện client sử dụng Java Swing với bố cục rõ ràng, dễ sử dụng.
-- **Hỗ trợ đa luồng**: Server có thể xử lý nhiều client cùng lúc mà không bị gián đoạn.
-- **Giao diện cho Server**: Giao diện hiển thị dễ quản lý Client, hiển thị log, và trạng thái Server.
-- **Quản lý dữ liệu linh hoạt**: Dữ liệu từ điển được tải từ tệp CSV (hỗ trợ UTF-8) hoặc dữ liệu mặc định.
+---
 
-### Mục tiêu:
-Ứng dụng được thiết kế để hỗ trợ học tập từ vựng Anh-Việt, đặc biệt phù hợp với học sinh, sinh viên và những người muốn tra cứu nhanh từ vựng. Dự án cũng là một bài tập thực hành về lập trình mạng (Socket) và giao diện người dùng (Swing).
+## ⚙️ 2. Công nghệ sử dụng
 
-## 2. Công nghệ sử dụng
+| Thành phần | Công nghệ - Mô tả |
+|-------------|------------------|
+| **Ngôn ngữ chính** | Python (Flask Framework) |
+| **Frontend** | HTML5, CSS3, JavaScript , Responsive CSS |
+| **Thư viện giao diện** | Dropzone.js (kéo & thả ảnh), Fetch API |
+| **Backend** | Flask – xử lý logic, routing, API |
+| **Cơ sở dữ liệu** | SQLite (local)  |
+| **AI Model (Ảnh)** | TensorFlow + Keras (MobileNetV2 fine-tuned cho bệnh da liễu) |
+| **AI Model (Ngôn ngữ)** | OpenAI GPT-4o-mini (phân tích mô tả & kết luận) |
+| **Quản lý môi trường** | python-dotenv |
+| **Xác thực người dùng** | Flask-Login, Flask-SQLAlchemy |
+| **Môi trường phát triển** | PyCharm |
 
-### Client
-<p align="center">
-    <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Java%20Swing-6DB33F?style=for-the-badge&logo=java&logoColor=white"/>
-</p>
+---
 
-- **Java**: Ngôn ngữ lập trình chính, đảm bảo tính đa nền tảng.
-- **Java Swing**: Thư viện tạo giao diện đồ họa, cung cấp các thành phần như ô nhập liệu, nút bấm, combobox và khu vực hiển thị kết quả.
+## 🧩 3. Kiến trúc hệ thống
 
-### Server
-<p align="center">
-    <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Socket%20Programming-00599C?style=for-the-badge&logo=java&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Multithreading-FF6F00?style=for-the-badge&logo=java&logoColor=white"/>
-</p>
+### 🔹 3 lớp chính
 
-- **Java Socket**: Xử lý giao tiếp mạng giữa client và server thông qua giao thức TCP.
-- **Multithreading**: Mỗi client được xử lý trên một luồng riêng, đảm bảo server hoạt động ổn định với nhiều kết nối.
+1. **Frontend (Client)**  
+   - Giao diện web: tải ảnh, nhập triệu chứng, xem kết quả.  
+   - Chatbot giao tiếp trực tiếp với người dùng.
+   - Lịch sử: Xem lịch sử phân tích được lưu trữ
 
-### Quản lý dữ liệu
-<p align="center">
-    <img src="https://img.shields.io/badge/CSV-1572B6?style=for-the-badge&logo=csv&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Encoding-UTF--8-green?style=for-the-badge"/>
-</p>
+2. **Backend (Flask Server)**  
+   - Nhận yêu cầu từ client, xử lý logic.  
+   - Gọi mô hình AI (CNN + GPT).  
+   - Kết hợp kết quả và lưu vào cơ sở dữ liệu.  
 
-- **CSV**: Tệp `english-vietnamese.csv` lưu trữ dữ liệu từ điển với các trường: từ tiếng Anh, nghĩa tiếng Việt, phiên âm, từ loại, ví dụ tiếng Anh, ví dụ tiếng Việt.
-- **UTF-8 Encoding**: Đảm bảo hỗ trợ tiếng Việt đầy đủ, tránh lỗi hiển thị ký tự.
+3. **AI Layer**  
+   - `MobileNetV2`: Phân loại bệnh da liễu từ ảnh.  
+   - `GPT-4o-mini`: Phân tích mô tả triệu chứng.  
+   - `Fusion Logic`: Kết hợp hai đầu ra và trả về kết luận cuối cùngcùng.
 
-## 3. Hình ảnh chương trình
+---
 
-### Giao diện Client
-- **Giao diện chính**:
+## 🔄 4. Luồng hoạt động
+
+```text
+Người dùng → Flask Server → AI Models (CNN + GPT) → Cơ sở dữ liệu → Giao diện kết quả
+```
+
+### 🌐 System Flow:
+1. Người dùng tải ảnh & nhập mô tả triệu chứng.  
+2. Flask lưu ảnh tạm và gọi mô hình AI.  
+3. CNN dự đoán loại bệnh da liễu.  
+4. GPT phân tích mô tả triệu chứng.  
+5. Hai kết quả được kết hợp → trả kết luận.  
+6. Kết quả lưu trong cơ sở dữ liệu `analysis_history`.  
+7. Người dùng có thể xem lại hoặc hỏi chatbot.
+### Sơ đồ hệ thống
+- **Sơ đồ tổng quát**:
     <p align="center">
-        <img src="images/giaodien.png" alt="Giao diện chính Client" width="800"/>
+        <img src="images/sodohoatdong.png" alt="Sơ đồ tổng quát của hệ thống" width="800"/>
     </p>
 
-- **Gợi ý khi không tìm thấy từ**:
-    <p align="center">
-        <img src="images/motanhapsai.png" alt="Gợi ý từ" width="800"/>
-    </p>
+---
 
-- **Tra cứu tiếng Anh sang tiếng Việt**:
-    <p align="center">
-        <img src="images/dichEN.png" alt="Tra cứu Anh-Việt" width="800"/>
-    </p>
- 
+## 💾 5️⃣ Cấu trúc cơ sở dữ liệu
 
-- **Tra cứu tiếng Việt sang tiếng Anh**:
-    <p align="center">
-        <img src="images/dichVN.png" alt="Tra cứu Việt-Anh" width="800"/>
-    </p>
+### Bảng `users`
+| Cột | Kiểu dữ liệu | Mô tả |
+|------|---------------|--------|
+| id | Integer | Khóa chính |
+| username | String | Tên người dùng |
+| email | String | Email đăng nhập |
+| password_hash | String | Mật khẩu đã mã hóa |
+| created_at | DateTime | Ngày tạo tài khoản |
 
-### Kho từ CSV
-- **Tệp dữ liệu mẫu**:
-    <p align="center">
-        <img src="images/khodulieu.png" alt="Tệp CSV" width="800"/>
-    </p>
-### Kho từ images
-- **Tệp dữ liệu hinh ảnh**:
-    <p align="center">
-        <img src="images/khodulieuanh.png" alt="Tệp ảnh minh họa" width="800"/>
-    </p>
-    
-### Giao diện Server
-- **Hiển thị giao diện quản lý bên Server**:
-    <p align="center">
-        <img src="images/serverUI.png" alt="Giao diện chính Server" width="800"/>
-    </p>
+### Bảng `analysis_history`
+| Cột | Kiểu dữ liệu | Mô tả |
+|------|---------------|--------|
+| id | Integer | Khóa chính |
+| user_id | Integer (FK) | Người thực hiện phân tích |
+| image_path | String | Đường dẫn ảnh |
+| cnn_result | String | Dự đoán từ CNN |
+| confidence | Float | Mức tin cậy của CNN |
+| gpt_result | Text | Phân tích của GPT |
+| final_conclusion | Text | Kết luận kết hợp |
+| created_at | DateTime | Thời gian phân tích |
 
-## 4. Hướng dẫn cài đặt
+---
 
-### Điều kiện tiên quyết
-- **Java Development Kit (JDK)**: Phiên bản 8 hoặc cao hơn (khuyến nghị JDK 17 để đảm bảo tương thích).
-- **Môi trường phát triển**: Sử dụng IDE như Eclipse, IntelliJ IDEA hoặc biên dịch thủ công bằng `javac`.
-- **Hệ điều hành**: Windows, macOS, Linux (đã kiểm tra trên Windows 10 và Ubuntu 20.04).
-- **Công cụ bổ sung** (tùy chọn): Git để clone repository, Notepad++ hoặc VSCode để chỉnh sửa tệp CSV.
+## 🛠️ 6️⃣ Hướng dẫn cài đặt & chạy dự án
 
-### Các bước cài đặt
-1. **Tải mã nguồn**:
-   - Clone repository từ GitHub (hoặc tải file zip):
-     ```
-     git clone https://github.com/yourusername/tudien.git
-     ```
-   - Hoặc tải trực tiếp `Server.java` và `Client.java`.
-   - Tạo thư mục dự án với cấu trúc:
-     ```
-     tudien/
-     ├── Server.java
-     ├── Client.java
-     └── english-vietnamese.csv (tùy chọn)
-     ```
+### 🔧 Yêu cầu hệ thống
+- Python >= 3.9  
+- pip >= 22  
+- Virtual environment (khuyến nghị)  
+- OpenAI API key hợp lệ  
 
-2. **Chuẩn bị dữ liệu**:
-   - Tạo tệp `english-vietnamese.csv` trong thư mục dự án với định dạng:
-     ```
-     english,vietnamese,ipa,part_of_speech,example_en,example_vi
-     apple,quả táo,/ˈæp.l̩/,danh từ,I ate an apple for breakfast.,Tôi ăn một quả táo vào bữa sáng.
-     book,cuốn sách,/bʊk/,danh từ,She is reading a book in the library.,Cô ấy đang đọc một cuốn sách trong thư viện.
-     dog,con chó,/dɒɡ/,danh từ,The dog is playing in the yard.,Con chó đang chơi ngoài sân.
-     ```
-   - **Lưu ý**: 
-     - Tệp phải sử dụng encoding **UTF-8** (có thể chỉnh sửa bằng Notepad++ hoặc VSCode).
-     - Nếu không có tệp, ứng dụng sẽ sử dụng dữ liệu mặc định với 3 từ: apple, book, dog.
-     - Có thể thêm nhiều từ vào tệp CSV để mở rộng từ điển.
+### 📦 Bước cài đặt
 
-3. **Biên dịch mã nguồn**:
-   - Mở terminal/command prompt, di chuyển đến thư mục dự án:
-     ```
-     cd tudien
-     ```
-   - Biên dịch cả hai file:
-     ```
-     javac tudien/*.java
-     ```
-   - Kiểm tra lỗi biên dịch (thường do thiếu JDK hoặc cấu hình sai).
+```bash
+# 1. Clone project
+git clone https://github.com/<your-username>/ai-dermatology-diagnosis.git
+cd ai-dermatology-diagnosis
 
-4. **Chạy ứng dụng**:
-   - **Khởi động Server**:
-     ```
-     java tudien.Server
-     ```
-     - Server sẽ chạy trên cổng 2000, tải dữ liệu từ điển và hiển thị số lượng từ đã tải.
-   - **Khởi động Client**:
-     ```
-     java tudien.Client
-     ```
-     - Giao diện client sẽ xuất hiện và tự động kết nối đến `localhost:2000`.
+# 2. Tạo môi trường ảo
+python -m venv venv
+source venv/bin/activate   # (Linux/Mac)
+venv\Scripts\activate      # (Windows)
 
-5. **Kiểm tra kết nối**:
-   - Nếu client hiển thị trạng thái **"Đã kết nối tới server!"** (màu xanh), ứng dụng đã sẵn sàng.
-   - Nếu gặp lỗi (ví dụ: "Không kết nối được server!"), kiểm tra:
-     - Server đã chạy chưa.
-     - Firewall có chặn cổng 2000 không.
-     - Địa chỉ `localhost` trong `Client.java` có đúng không (nếu chạy trên mạng, thay bằng IP server).
+# 3. Cài đặt thư viện
+pip install -r requirements.txt
 
-### Hướng dẫn sử dụng
-1. **Khởi động ứng dụng**:
-   - Chạy Server trước để lắng nghe kết nối.
-   - Mở Client, giao diện sẽ hiển thị trạng thái kết nối.
+# 4. Tạo file .env
+touch .env
+# Thêm vào:
+OPENAI_API_KEY=your_api_key_here
+FLASK_ENV=development
 
-2. **Tra cứu từ**:
-   - Chọn chế độ tra cứu (**Tiếng Anh** hoặc **Tiếng Việt**) từ combobox.
-   - Nhập từ cần tra vào ô **"Nhập từ / câu"**.
-   - Nhấn nút **"Tra cứu"**.
-   - Kết quả hiển thị ở các ô:
-     - **Bản dịch**: Nghĩa của từ.
-     - **Phiên âm**: Phát âm theo chuẩn IPA.
-     - **Từ loại**: Danh từ, động từ, tính từ, v.v.
-     - **Ví dụ (Tiếng Anh)**: Câu ví dụ bằng tiếng Anh.
-     - **Ví dụ (Tiếng Việt)**: Câu ví dụ bằng tiếng Việt.
-       - **Hình ảnh minh họa**:Hình ảnh minh họa tương ứng với từ được tra.
-   - Nếu không tìm thấy từ, ô **"Gợi ý"** sẽ hiển thị các từ bắt đầu bằng ký tự đầu tiên.
+# 5. Chạy ứng dụng
+python app.py
+```
 
-3. **Thoát ứng dụng**:
-   - Đóng cửa sổ Client sẽ gửi lệnh `EXIT` đến Server và ngắt kết nối.
-   - Dừng Server bằng phím `Ctrl+C` trong terminal.
+Ứng dụng sẽ chạy tại: **http://localhost:5000**
 
-### Lưu ý:
-- Ứng dụng hiện chỉ hỗ trợ tra cứu từ đơn. Để hỗ trợ cụm từ hoặc câu, cần nâng cấp logic xử lý.
-- Để triển khai trên mạng, chỉnh sửa `localhost` trong `Client.java` thành địa chỉ IP của server.
-- Nếu gặp lỗi hiển thị tiếng Việt, kiểm tra encoding của tệp CSV (phải là UTF-8).
+---
+
+## 🌍 7️⃣ Triển khai (Deployment)
+
+Dự án có thể triển khai dễ dàng trên:
+- **Linux VPS / Cloud (AWS, GCP, Azure, Render)**  
+- **Gunicorn + Nginx** cho production  
+- **PostgreSQL** thay cho SQLite nếu cần mở rộng  
+
+---
+
+## 🚀 8️⃣ Hướng phát triển
+
+✅ Cải thiện độ chính xác của mô hình AI  
+✅ Thêm RESTful API cho mobile app  
+✅ Tích hợp PWA để hoạt động offline  
+✅ Thêm biểu đồ thống kê & phân tích xu hướng  
+✅ Tăng tốc độ bằng Redis cache  
+✅ Thêm AI Explainability (hiển thị vùng ảnh CNN tập trung)
 
 ## 5. Thông tin liên hệ
 
