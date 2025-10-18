@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkinAI - Lịch sử phân tích</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: #f2f6fc;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #003366;
+            color: #ffffff;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: width 0.3s;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .logo img {
+            width: 200px;
+            height: 200px;
+            margin-right: 20px;
+            border: none;
+        }
+
+        .sidebar .app-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #ff9933;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: #ff6600;
+        }
+
+        .sidebar a img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: none;
+        }
+
+        .sidebar a span {
+            margin-left: 10px;
+            transition: opacity 0.3s;
+        }
+
+        /* Responsive sidebar */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            .sidebar .app-name,
+            .sidebar a span {
+                opacity: 0;
+                display: none;
+            }
+            .sidebar a {
+                justify-content: center;
+            }
+            .sidebar a img {
+                margin-right: 0;
+                border: none;
+            }
+            .sidebar .logo img {
+                width: 32px;
+                height: 32px;
+                margin-right: 0;
+                border: none;
+            }
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: {{ '250px' if current_user.is_authenticated else '0' }};
+            flex-grow: 1;
+            padding: 40px;
+            background: #f2f6fc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ff6600;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 img {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+            margin-right: 8px;
+            border: none;
+        }
+
+        /* Table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #ffffff;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #ff6600;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fbff;
+        }
+
+        tr:hover {
+            background: #e6f0ff;
+            transition: background 0.3s;
+        }
+
+        img {
+            width: 80px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-block;
+            background: #003366;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ff6600;
+        }
+
+        .back-btn img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 8px;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: auto;
+            padding: 20px 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar (chỉ hiển thị khi đã đăng nhập) -->
+    {% if current_user.is_authenticated %}
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/static/images/stethoscope-icon.png" alt="Stethoscope Logo">
+        </div>
+        <div class="app-name">SKIN DISEASE AI</div>
+        <a href="{{ url_for('index') }}">
+            <img src="/static/images/home-icon.png" alt="Home Icon">
+            <span>Trang chủ</span>
+        </a>
+        <a href="{{ url_for('history') }}" class="active">
+            <img src="/static/images/history-icon.png" alt="History Icon">
+            <span>Lịch sử chẩn đoán</span>
+        </a>
+        <a href="{{ url_for('chatbot') }}">
+            <img src="/static/images/chatbot-icon.png" alt="Chatbot Icon">
+            <span>Chatbot</span>
+        </a>
+        <a href="{{ url_for('logout') }}">
+            <img src="/static/images/logout-icon.png" alt="Logout Icon">
+            <span>Đăng xuất</span>
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Main content -->
+    <div class="main-content">
+        <div class="container">
+            <h2>
+                Lịch sử phân tích
+            </h2>
+            <table>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Bệnh (CNN)</th>
+                    <th>Mô tả</th>
+                    <th>Kết luận</th>
+                    <th>Ngày</th>
+                </tr>
+                {% for r in records %}
+                <tr>
+                    <td><img src="{{ r.image_path }}"></td>
+                    <td>{{ r.cnn_result }} ({{ "%.2f"|format(r.confidence) }})</td>
+                    <td>{{ r.symptom_text }}</td>
+                    <td>{{ r.final_conclusion }}</td>
+                    <td>{{ r.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="{{ url_for('index') }}" class="back-btn">
+                <img src="/static/images/back-icon.png" alt="Back Icon">
+                Quay lại
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer>© 2025 SkinAI Team</footer>
+    </div>
+</body>
+</html>
