@@ -4,7 +4,7 @@
     </a>
 </h2>
 <h2 align="center">
-   ỨNG DỤNG TRA CỨU TỪ ĐIỂN ANH-VIỆT
+   HỆ THỐNG NHẬN DIỆN VÀ PHÂN LOẠI BỆNH DA LIỄU DỰA TRÊN HÌNH ẢNH Y KHOA
 </h2>
 <div align="center">
     <p align="center">
